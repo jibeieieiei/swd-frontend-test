@@ -14,6 +14,7 @@
   padding: 80px;
   gap: 64px;
   font-family: var(--font-geist-sans);
+  background: linear-gradient(to right, #6eda78, #ffa200);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -29,7 +30,7 @@
 
 .main {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 32px;
   grid-row-start: 2;
 }
@@ -54,6 +55,20 @@
   padding: 2px 4px;
   border-radius: 4px;
   font-weight: 600;
+}
+
+.box {
+  width: 200px;
+  min-height: fit-content;
+  padding: 20px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  gap: 8px;
+  border: 0px;
+  border-radius: 0px;
 }
 
 .ctas {
