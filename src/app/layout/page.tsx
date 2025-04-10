@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import styles from '.././page.module.css'
-import shapeStyles from '../styles/shape.module.css'
+import '../styles/shape.css'
 import { Button } from 'antd'
 
 const Layout = () => {
@@ -11,26 +11,31 @@ const Layout = () => {
     'oval',
     'trapezoid',
     'rectangle',
-    'rhombus',
+    'parallelogram',
   ])
+  const [position, setPosition] = useState(true)
 
   const displayShapes = (shape: string) => {
     switch (shape) {
       case 'square':
-        return <div>square</div>
+        return <div className="square"></div>
       case 'circle':
-        return <div>circle</div>
+        return <div className="circle"></div>
       case 'oval':
-        return <div>oval</div>
+        return <div className="oval"></div>
       case 'trapezoid':
-        return <div>trapezoid</div>
+        return <div className="trapezoid"></div>
       case 'rectangle':
-        return <div>rectangle</div>
-      case 'rhombus':
-        return <div>rhombus</div>
+        return <div className="rectangle"></div>
+      case 'parallelogram':
+        return <div className="parallelogram"></div>
       default:
         return <div></div>
     }
+  }
+
+  const handleClickPosition = () => {
+    setPosition(!position)
   }
 
   const handleClickPrevious = () => {
@@ -50,15 +55,54 @@ const Layout = () => {
   }
   return (
     <div className={styles.page}>
-      <header>
-        <Button onClick={handleClickPrevious}>Move Shape</Button>
-        <Button>Move Position</Button>
-        <Button onClick={handleClickNext}>Move Shape</Button>
+      <header className={styles.header}>
+        <Button
+          onClick={handleClickPrevious}
+          className={styles.moveShapeButton}
+        >
+          <div className="triangle-left"></div>
+          <span>Move Shape</span>
+        </Button>
+        <Button
+          onClick={handleClickPosition}
+          className={styles.movePositionButton}
+        >
+          <div className="triangle-up"></div>
+          <div className="triangle-down"></div>
+          <span>Move Position</span>
+        </Button>
+        <Button onClick={handleClickNext} className={styles.moveShapeButton}>
+          <div className="triangle-right"></div>
+          <span>Move Shape</span>
+        </Button>
       </header>
       <main className={styles.main}>
-        {shapes.map((item) => (
-          <div key={item}>{displayShapes(item)}</div>
-        ))}
+        <div className={styles.container}>
+          <div
+            style={{
+              gridArea: position ? ' 1 / 2 / 2 / 5 ' : '1 / 1 / 2 / 4',
+              display: 'flex',
+            }}
+          >
+            {shapes.slice(0, 3).map((item) => (
+              <div key={item} className={styles.boxShape}>
+                {displayShapes(item)}
+              </div>
+            ))}
+          </div>
+          <div
+            style={{
+              gridArea: position ? ' 2 / 1 / 3 / 4 ' : '2 / 2 / 3 / 5',
+              display: 'flex',
+            }}
+          >
+            {shapes.slice(3).map((item) => (
+              <div key={item} className={styles.boxShape}>
+                {displayShapes(item)}
+              </div>
+            ))}
+          </div>
+        </div>
       </main>
     </div>
   )
