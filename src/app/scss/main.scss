@@ -1,0 +1,112 @@
+$shape-color: #8b8a87;
+$shape-radius: 50%;
+$shape-width: 50px;
+$shape-height: 50px;
+$shape-border-transparent: 25px solid transparent;
+$shape-border-color: 50px solid $shape-color;
+
+.square {
+  width: $shape-width;
+  height: $shape-height;
+  background-color: $shape-color;
+}
+
+.rectangle {
+  width: 100px;
+  height: $shape-height;
+  background-color: $shape-color;
+}
+
+.circle {
+  width: $shape-width;
+  height: $shape-height;
+  background-color: $shape-color;
+  border-radius: $shape-radius;
+}
+
+.oval {
+  width: 100px;
+  height: $shape-height;
+  background-color: $shape-color;
+  border-radius: $shape-radius;
+}
+
+.trapezoid {
+  width: 100px;
+  height: 0;
+  border-left: $shape-border-transparent;
+  border-right: $shape-border-transparent;
+  border-bottom: $shape-border-color;
+}
+
+.parallelogram {
+  width: 100px;
+  height: $shape-height;
+  transform: skew(20deg);
+  background: $shape-color;
+}
+
+.triangle {
+  &-up {
+    width: 0;
+    height: 0;
+    border-left: $shape-border-transparent;
+    border-right: $shape-border-transparent;
+    border-bottom: $shape-border-color;
+  }
+  &-down {
+    width: 0;
+    height: 0;
+    border-left: $shape-border-transparent;
+    border-right: $shape-border-transparent;
+    border-top: $shape-border-color;
+  }
+
+  &-left {
+    width: 0;
+    height: 0;
+    border-top: $shape-border-transparent;
+    border-right: $shape-border-color;
+    border-bottom: $shape-border-transparent;
+  }
+
+  &-right {
+    width: 0;
+    height: 0;
+    border-top: $shape-border-transparent;
+    border-left: $shape-border-color;
+    border-bottom: $shape-border-transparent;
+  }
+}
+
+// .triangle-up {
+//   width: 0;
+//   height: 0;
+//   border-left: $shape-border-transparent;
+//   border-right: $shape-border-transparent;
+//   border-bottom: $shape-border-color;
+// }
+
+// .triangle-down {
+//   width: 0;
+//   height: 0;
+//   border-left: $shape-border-transparent;
+//   border-right: $shape-border-transparent;
+//   border-top: $shape-border-color;
+// }
+
+// .triangle-left {
+//   width: 0;
+//   height: 0;
+//   border-top: $shape-border-transparent;
+//   border-right: $shape-border-color;
+//   border-bottom: $shape-border-transparent;
+// }
+
+// .triangle-right {
+//   width: 0;
+//   height: 0;
+//   border-top: $shape-border-transparent;
+//   border-left: $shape-border-color;
+//   border-bottom: $shape-border-transparent;
+// }
