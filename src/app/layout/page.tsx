@@ -3,8 +3,10 @@ import React, { useState } from 'react'
 import styles from '.././page.module.css'
 import '../styles/shape.css'
 import { Button } from 'antd'
+import { useTranslation } from 'react-i18next'
 
 const Layout = () => {
+  const { t } = useTranslation()
   const [shapes, setShapes] = useState([
     'square',
     'circle',
@@ -61,7 +63,7 @@ const Layout = () => {
           className={styles.moveShapeButton}
         >
           <div className="triangle-left"></div>
-          <span>Move Shape</span>
+          <span>{t('Move Shape')}</span>
         </Button>
         <Button
           onClick={handleClickPosition}
@@ -69,11 +71,11 @@ const Layout = () => {
         >
           <div className="triangle-up"></div>
           <div className="triangle-down"></div>
-          <span>Move Position</span>
+          <span>{t('Move Position')}</span>
         </Button>
         <Button onClick={handleClickNext} className={styles.moveShapeButton}>
           <div className="triangle-right"></div>
-          <span>Move Shape</span>
+          <span>{t('Move Shape')}</span>
         </Button>
       </header>
       <main className={styles.main}>
