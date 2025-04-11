@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <div className="" style={{ position: 'absolute' }}>
+        <div style={{ position: 'absolute', right: '10px', top: '10px' }}>
           <ChangeLanguage />
         </div>
         {children}
