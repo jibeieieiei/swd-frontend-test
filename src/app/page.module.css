@@ -72,6 +72,7 @@
   padding: 16px;
   border-radius: 8px;
   background: #ffffff;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -157,6 +158,18 @@ a.secondary {
 
 .footer img {
   flex-shrink: 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  border: solid 1px #1a1a1a;
+  border-radius: 4px;
+  padding: 16px;
+  height: fit-content;
 }
 
 /* Enable hover only on non-touch devices */

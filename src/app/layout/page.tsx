@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import styles from '.././page.module.css'
 import '../styles/shape.css'
-import { Button } from 'antd'
+import { Button, ConfigProvider } from 'antd'
 import { useTranslation } from 'react-i18next'
 
 const Layout = () => {
@@ -55,60 +55,109 @@ const Layout = () => {
       return [last, ...rest]
     })
   }
+
+  const shuffle = (array: string[]) => {
+    let newArray = [...array]
+    let i = newArray.length,
+      j,
+      temp
+    while (--i > 0) {
+      j = Math.floor(Math.random() * (i + 1))
+      temp = newArray[j]
+      newArray[j] = newArray[i]
+      newArray[i] = temp
+    }
+    return newArray
+  }
+  const handleRandomPosition = () => {
+    setShapes(shuffle(shapes))
+  }
+
   return (
-    <div className={styles.page}>
-      <header className={styles.header}>
-        <Button
-          onClick={handleClickPrevious}
-          className={styles.moveShapeButton}
+    <ConfigProvider
+      theme={{
+        components: {
+          Button: {
+            defaultHoverBg: '#FFA200',
+            defaultBorderColor: '#FFFFFF',
+            defaultHoverColor: '#000000',
+            defaultHoverBorderColor: '#FFA200',
+          },
+        },
+      }}
+    >
+      <div className={styles.page}>
+        <span
+          style={{
+            position: 'absolute',
+            fontSize: '32px',
+            top: '20px',
+            left: '40px',
+          }}
         >
-          <div className="triangle-left"></div>
-          <span>{t('Move Shape')}</span>
-        </Button>
-        <Button
-          onClick={handleClickPosition}
-          className={styles.movePositionButton}
-        >
-          <div className="triangle-up"></div>
-          <div className="triangle-down"></div>
-          <span>{t('Move Position')}</span>
-        </Button>
-        <Button onClick={handleClickNext} className={styles.moveShapeButton}>
-          <div className="triangle-right"></div>
-          <span>{t('Move Shape')}</span>
-        </Button>
-      </header>
-      <main className={styles.main}>
-        <div className={styles.container}>
-          <div
-            style={{
-              gridArea: position ? ' 1 / 2 / 2 / 5 ' : '1 / 1 / 2 / 4',
-              display: 'flex',
-              gap: '10px',
-            }}
+          {t('Layout & Style')}
+        </span>
+        <header className={styles.header}>
+          <Button
+            onClick={handleClickPrevious}
+            className={styles.moveShapeButton}
           >
-            {shapes.slice(0, 3).map((item) => (
-              <div key={item} className={styles.boxShape}>
-                {displayShapes(item)}
-              </div>
-            ))}
-          </div>
-          <div
-            style={{
-              gridArea: position ? ' 2 / 1 / 3 / 4 ' : '2 / 2 / 3 / 5',
-              display: 'flex',
-              gap: '10px',
-            }}
+            <div className="triangle-left"></div>
+            <span>{t('Move Shape')}</span>
+          </Button>
+          <Button
+            onClick={handleClickPosition}
+            className={styles.movePositionButton}
           >
-            {shapes.slice(3).map((item) => (
-              <div key={item} className={styles.boxShape}>
-                {displayShapes(item)}
-              </div>
-            ))}
+            <div className="triangle-up"></div>
+            <div className="triangle-down"></div>
+            <span>{t('Move Position')}</span>
+          </Button>
+          <Button onClick={handleClickNext} className={styles.moveShapeButton}>
+            <div className="triangle-right"></div>
+            <span>{t('Move Shape')}</span>
+          </Button>
+        </header>
+        <main className={styles.main}>
+          <div className={styles.container}>
+            <div
+              style={{
+                gridArea: position ? ' 1 / 2 / 2 / 5 ' : '1 / 1 / 2 / 4',
+                display: 'flex',
+                gap: '10px',
+              }}
+            >
+              {shapes.slice(0, 3).map((item) => (
+                <Button
+                  key={item}
+                  className={styles.boxShape}
+                  onClick={handleRandomPosition}
+                >
+                  {displayShapes(item)}
+                </Button>
+              ))}
+            </div>
+            <div
+              style={{
+                gridArea: position ? ' 2 / 1 / 3 / 4 ' : '2 / 2 / 3 / 5',
+                display: 'flex',
+                gap: '10px',
+              }}
+            >
+              {shapes.slice(3).map((item) => (
+                <Button
+                  key={item}
+                  className={styles.boxShape}
+                  onClick={handleRandomPosition}
+                >
+                  {displayShapes(item)}
+                </Button>
+              ))}
+            </div>
           </div>
-        </div>
-      </main>
-    </div>
+        </main>
+      </div>
+    </ConfigProvider>
   )
 }
 
