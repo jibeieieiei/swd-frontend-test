@@ -1,9 +1,9 @@
 $shape-color: #8b8a87;
 $shape-radius: 50%;
-$shape-width: 50px;
-$shape-height: 50px;
-$shape-border-transparent: 25px solid transparent;
-$shape-border-color: 50px solid $shape-color;
+$shape-width: 100px;
+$shape-height: 100px;
+$shape-border-transparent: 50px solid transparent;
+$shape-border-color: 100px solid $shape-color;
 
 .square {
   width: $shape-width;
@@ -12,7 +12,7 @@ $shape-border-color: 50px solid $shape-color;
 }
 
 .rectangle {
-  width: 100px;
+  width: 200px;
   height: $shape-height;
   background-color: $shape-color;
 }
@@ -25,14 +25,14 @@ $shape-border-color: 50px solid $shape-color;
 }
 
 .oval {
-  width: 100px;
+  width: 200px;
   height: $shape-height;
   background-color: $shape-color;
   border-radius: $shape-radius;
 }
 
 .trapezoid {
-  width: 100px;
+  width: 200px;
   height: 0;
   border-left: $shape-border-transparent;
   border-right: $shape-border-transparent;
@@ -40,7 +40,7 @@ $shape-border-color: 50px solid $shape-color;
 }
 
 .parallelogram {
-  width: 100px;
+  width: 200px;
   height: $shape-height;
   transform: skew(20deg);
   background: $shape-color;
@@ -78,35 +78,3 @@ $shape-border-color: 50px solid $shape-color;
     border-bottom: $shape-border-transparent;
   }
 }
-
-// .triangle-up {
-//   width: 0;
-//   height: 0;
-//   border-left: $shape-border-transparent;
-//   border-right: $shape-border-transparent;
-//   border-bottom: $shape-border-color;
-// }
-
-// .triangle-down {
-//   width: 0;
-//   height: 0;
-//   border-left: $shape-border-transparent;
-//   border-right: $shape-border-transparent;
-//   border-top: $shape-border-color;
-// }
-
-// .triangle-left {
-//   width: 0;
-//   height: 0;
-//   border-top: $shape-border-transparent;
-//   border-right: $shape-border-color;
-//   border-bottom: $shape-border-transparent;
-// }
-
-// .triangle-right {
-//   width: 0;
-//   height: 0;
-//   border-top: $shape-border-transparent;
-//   border-left: $shape-border-color;
-//   border-bottom: $shape-border-transparent;
-// }

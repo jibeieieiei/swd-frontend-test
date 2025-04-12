@@ -84,6 +84,7 @@ const Layout = () => {
             style={{
               gridArea: position ? ' 1 / 2 / 2 / 5 ' : '1 / 1 / 2 / 4',
               display: 'flex',
+              gap: '10px',
             }}
           >
             {shapes.slice(0, 3).map((item) => (
@@ -96,6 +97,7 @@ const Layout = () => {
             style={{
               gridArea: position ? ' 2 / 1 / 3 / 4 ' : '2 / 2 / 3 / 5',
               display: 'flex',
+              gap: '10px',
             }}
           >
             {shapes.slice(3).map((item) => (
