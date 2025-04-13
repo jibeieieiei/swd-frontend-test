@@ -20,15 +20,24 @@ import InfoTable from './InfoTable'
 
 const FormPage = () => {
   const { t } = useTranslation()
-  const onFinish = (e: any) => {
-    const id = nanoid()
-    localStorage.setItem('form', JSON.stringify([{ id: id, form: e }]))
-  }
-
   const [form] = useForm()
 
-  const onEdit = () => {
-    form.setFieldsValue({})
+  const onFinish = (e: any) => {
+    const id = nanoid()
+    const data: string | null = localStorage.getItem('form')
+    if (data) {
+      localStorage.setItem(
+        'form',
+        JSON.stringify([...JSON.parse(data), { id: id, form: e }])
+      )
+    } else {
+      localStorage.setItem('form', JSON.stringify([{ id: id, form: e }]))
+    }
+    form.resetFields()
+  }
+
+  const onReset = () => {
+    form.resetFields()
   }
 
   return (
@@ -218,7 +227,7 @@ const FormPage = () => {
               />
             </Form.Item>
             <div style={{ marginLeft: '100px', display: 'flex', gap: '10px' }}>
-              <Button>{t('RESET')}</Button>
+              <Button onClick={onReset}>{t('RESET')}</Button>
               <Button htmlType="submit">{t('SUBMIT')}</Button>
             </div>
           </div>

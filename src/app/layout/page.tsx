@@ -57,7 +57,7 @@ const Layout = () => {
   }
 
   const shuffle = (array: string[]) => {
-    let newArray = [...array]
+    const newArray = [...array]
     let i = newArray.length,
       j,
       temp
