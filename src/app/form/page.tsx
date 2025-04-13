@@ -16,6 +16,8 @@ import { useForm } from 'antd/es/form/Form'
 import { nanoid } from 'nanoid'
 import CitizenIDInput from './CitizenIDInput'
 
+import SortableMockTable from './SortableMockTable'
+
 const FormPage = () => {
   const { t } = useTranslation()
   const onFinish = (e: any) => {
@@ -221,7 +223,9 @@ const FormPage = () => {
             </div>
           </div>
         </Form>
-        {/* <main className={styles.main}>hello</main> */}
+        <main className={styles.main}>
+          <SortableMockTable />
+        </main>
       </div>
     </ConfigProvider>
   )
