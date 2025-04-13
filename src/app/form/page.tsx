@@ -16,7 +16,7 @@ import { useForm } from 'antd/es/form/Form'
 import { nanoid } from 'nanoid'
 import CitizenIDInput from './CitizenIDInput'
 
-import SortableMockTable from './SortableMockTable'
+import InfoTable from './InfoTable'
 
 const FormPage = () => {
   const { t } = useTranslation()
@@ -130,7 +130,7 @@ const FormPage = () => {
               name="mobile-phone"
               rules={[{ required: true, message: '' }]}
             >
-              <Select className={styles.formItem}>
+              <Select style={{ minWidth: '100px' }}>
                 <Select.Option value="thai">
                   <div
                     style={{
@@ -223,9 +223,16 @@ const FormPage = () => {
             </div>
           </div>
         </Form>
-        <main className={styles.main}>
-          <SortableMockTable />
-        </main>
+        <div
+          style={{
+            display: 'flex',
+            width: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <InfoTable />
+        </div>
       </div>
     </ConfigProvider>
   )

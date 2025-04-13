@@ -183,6 +183,10 @@ a.secondary {
 .formItem {
   min-width: 200px;
 }
+.editButton:hover {
+  color: #4096ff;
+  cursor: pointer;
+}
 
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
