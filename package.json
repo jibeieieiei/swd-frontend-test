@@ -11,6 +11,7 @@
   "dependencies": {
     "antd": "^5.24.6",
     "i18next": "^23.16.8",
+    "nanoid": "^5.1.5",
     "next": "14.2.12",
     "react": "^18",
     "react-dom": "^18",
