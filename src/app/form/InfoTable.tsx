@@ -14,6 +14,7 @@ import {
   deleteSelection,
   uncheckAll,
 } from './action'
+import { useTranslation } from 'react-i18next'
 
 interface DataType {
   key: string
@@ -43,22 +44,8 @@ interface FormType {
   checked: boolean
 }
 
-const itemRender: PaginationProps['itemRender'] = (
-  _,
-  type,
-  originalElement
-) => {
-  if (type === 'prev') {
-    return <a>Previous</a>
-  }
-  if (type === 'next') {
-    return <a>Next</a>
-  }
-  return originalElement
-}
-
 const InfoTable = ({ form }: { form: FormInstance<FormType> }) => {
-  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
+  const { t } = useTranslation()
 
   const dataTable = useSelector((state: FormState) => {
     return state.form
@@ -70,6 +57,20 @@ const InfoTable = ({ form }: { form: FormInstance<FormType> }) => {
   const temp: React.Key[] = dataTable.map((item) =>
     item.checked ? item.id : ''
   )
+
+  const itemRender: PaginationProps['itemRender'] = (
+    _,
+    type,
+    originalElement
+  ) => {
+    if (type === 'prev') {
+      return <a>{t('PREV')}</a>
+    }
+    if (type === 'next') {
+      return <a>{t('NEXT')}</a>
+    }
+    return originalElement
+  }
 
   const rowSelection: TableProps<DataType>['rowSelection'] = {
     selectedRowKeys: temp,
@@ -114,35 +115,45 @@ const InfoTable = ({ form }: { form: FormInstance<FormType> }) => {
 
   const columns = [
     {
-      title: 'Name',
+      title: t('Name'),
       dataIndex: 'name',
       key: 'name',
       sorter: (a: DataType, b: DataType) => a.name.localeCompare(b.name),
       width: 450,
     },
     {
-      title: 'Gender',
+      title: t('Gender'),
       dataIndex: 'gender',
       key: 'gender',
       sorter: (a: DataType, b: DataType) => a.gender.localeCompare(b.gender),
       width: 170,
+      render: (value: string) => (
+        <div style={{ display: 'flex', justifyContent: 'start', gap: '16px' }}>
+          {t(value)}
+        </div>
+      ),
     },
     {
-      title: 'Mobile',
+      title: t('Mobile'),
       dataIndex: 'mobile',
       key: 'mobile',
       sorter: (a: DataType, b: DataType) => a.mobile.localeCompare(b.mobile),
       width: 300,
     },
     {
-      title: 'Nationality',
+      title: t('Nationality'),
       dataIndex: 'nationality',
       key: 'nationality',
       sorter: (a: DataType, b: DataType) =>
         a.nationality.localeCompare(b.nationality),
+      render: (value: string) => (
+        <div style={{ display: 'flex', justifyContent: 'start', gap: '16px' }}>
+          {t(value)}
+        </div>
+      ),
     },
     {
-      title: 'Manage',
+      title: t('Manage'),
       dataIndex: 'manage',
       key: 'manage',
       render: (_: string, value: DataType) => (
@@ -153,15 +164,16 @@ const InfoTable = ({ form }: { form: FormInstance<FormType> }) => {
               onEdit(form, dataTable, value.key)
             }}
           >
-            EDIT
+            {t('EDIT')}
           </div>
           <div
             className={styles.editButton}
             onClick={() => {
               onDelete(dataTable, value.key)
+              alert(t('Delete Success'))
             }}
           >
-            DELETE
+            {t('DELETE')}
           </div>
         </div>
       ),
@@ -179,21 +191,28 @@ const InfoTable = ({ form }: { form: FormInstance<FormType> }) => {
   })
 
   return (
-    <div style={{ display: 'flex', width: '100%', position: 'relative' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        position: 'relative',
+        alignItems: 'flex-start',
+      }}
+    >
       <div
         style={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          position: 'absolute',
-          top: '16px',
+          marginBottom: '16px',
         }}
       >
         <Checkbox
           onClick={handleSelectAll}
           checked={dataTable.every((item) => item.checked)}
         >
-          Select All
+          {t('Select All')}
         </Checkbox>
         <Button
           style={{ zIndex: 10 }}
@@ -204,9 +223,10 @@ const InfoTable = ({ form }: { form: FormInstance<FormType> }) => {
               localStorage.setItem('form', JSON.stringify(deleteData))
               dispatch(deleteSelection())
             }
+            alert(t('Delete Success'))
           }}
         >
-          DELETE
+          {t('DELETE')}
         </Button>
       </div>
 
