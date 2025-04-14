@@ -43,6 +43,7 @@ const resources = {
       Manage: 'Manage',
       'Save Success': 'Save Success',
       'Delete Success': 'Delete Success',
+      Home: 'Home',
     },
   },
   th: {
@@ -86,6 +87,7 @@ const resources = {
       Manage: 'จัดการ',
       'Save Success': 'บันทึกสำเร็จ',
       'Delete Success': 'ลบสำเร็จ',
+      Home: 'หน้าหลัก',
     },
   },
 }
