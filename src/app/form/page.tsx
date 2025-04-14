@@ -37,7 +37,6 @@ export interface FormType {
   gender: string
   'mobile-phone': string
   Phone: string
-  checked: boolean
 }
 
 const FormPage = () => {
@@ -54,12 +53,10 @@ const FormPage = () => {
       if (data) {
         const array: FormData[] = JSON.parse(data)
         const newData = array.map((item) =>
-          item.id === isEdit ? { id: isEdit, ...e } : item
+          item.id === isEdit ? { id: isEdit, checked: false, ...e } : item
         )
         localStorage.setItem('form', JSON.stringify(newData))
         dispatch(edit(newData))
-      } else {
-        console.log('bug')
       }
       form.resetFields()
     } else {
@@ -68,13 +65,19 @@ const FormPage = () => {
       if (data) {
         localStorage.setItem(
           'form',
-          JSON.stringify([...JSON.parse(data), { id: id, ...e }])
+          JSON.stringify([
+            ...JSON.parse(data),
+            { id: id, checked: false, ...e },
+          ])
         )
       } else {
-        localStorage.setItem('form', JSON.stringify([{ id: id, ...e }]))
+        localStorage.setItem(
+          'form',
+          JSON.stringify([{ id: id, checked: false, ...e }])
+        )
       }
       form.resetFields()
-      dispatch(insert({ id: id, ...e }))
+      dispatch(insert({ id: id, checked: false, ...e }))
     }
     alert(t('Save Success'))
   }
@@ -84,11 +87,9 @@ const FormPage = () => {
     dispatch(reset())
   }
   useEffect(() => {
-    console.log(typeof window, 'window')
     if (typeof window !== 'undefined') {
       const data = localStorage.getItem('form')
       if (data) {
-        console.log('in?')
         dispatch(edit(JSON.parse(data)))
       }
     }

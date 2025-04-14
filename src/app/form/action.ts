@@ -1,3 +1,4 @@
+import { Key } from 'react'
 import { FormData } from './reducer'
 
 export const INSERT = 'INSERT'
@@ -5,6 +6,10 @@ export const DELETE = 'DELETE'
 export const EDIT = 'EDIT'
 export const CLICKEDIT = 'CLICKEDIT'
 export const RESET = 'RESET'
+export const CHECKALL = 'CHECKALL'
+export const UNCHECKALL = 'UNCHECKALL'
+export const CHECKBYKEY = 'CHECKBYKEY'
+export const DELETESELECTION = 'DELETESELECTION'
 
 export const insert = (payload: FormData) => {
   return {
@@ -37,5 +42,30 @@ export const clickDelete = (payload: FormData[]) => {
 export const reset = () => {
   return {
     type: RESET,
+  }
+}
+
+export const checkAll = () => {
+  return {
+    type: CHECKALL,
+  }
+}
+
+export const uncheckAll = () => {
+  return {
+    type: UNCHECKALL,
+  }
+}
+
+export const checkByKey = (payload: Key[]) => {
+  return {
+    type: CHECKBYKEY,
+    payload: payload,
+  }
+}
+
+export const deleteSelection = () => {
+  return {
+    type: DELETESELECTION,
   }
 }

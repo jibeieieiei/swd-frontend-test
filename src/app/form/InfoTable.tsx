@@ -6,7 +6,14 @@ import styles from '../page.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { FormData, FormState } from './reducer'
 import dayjs, { Dayjs } from 'dayjs'
-import { clickDelete, clickEdit } from './action'
+import {
+  checkAll,
+  checkByKey,
+  clickDelete,
+  clickEdit,
+  deleteSelection,
+  uncheckAll,
+} from './action'
 
 interface DataType {
   key: string
@@ -60,16 +67,23 @@ const InfoTable = ({ form }: { form: FormInstance<FormType> }) => {
   const dateFormat = 'YYYY/MM/DD'
   const dispatch = useDispatch()
 
+  const temp: React.Key[] = dataTable.map((item) =>
+    item.checked ? item.id : ''
+  )
+
   const rowSelection: TableProps<DataType>['rowSelection'] = {
-    selectedRowKeys,
+    selectedRowKeys: temp,
     onChange: (selectedKeys) => {
-      setSelectedRowKeys(selectedKeys)
+      dispatch(checkByKey(selectedKeys))
     },
   }
 
   const handleSelectAll = () => {
-    const allKeys = dataTable.map((item) => item.id)
-    setSelectedRowKeys(allKeys)
+    if (dataTable.some((item) => item.checked === false)) {
+      dispatch(checkAll())
+    } else if (dataTable.every((item) => item.checked === true)) {
+      dispatch(uncheckAll())
+    }
   }
 
   const onEdit = (
@@ -175,8 +189,25 @@ const InfoTable = ({ form }: { form: FormInstance<FormType> }) => {
           top: '16px',
         }}
       >
-        <Checkbox onClick={handleSelectAll}>Select All</Checkbox>
-        <Button>DELETE</Button>
+        <Checkbox
+          onClick={handleSelectAll}
+          checked={dataTable.every((item) => item.checked)}
+        >
+          Select All
+        </Checkbox>
+        <Button
+          style={{ zIndex: 10 }}
+          onClick={() => {
+            const deleteData = dataTable.filter((item) => !item.checked)
+
+            if (deleteData) {
+              localStorage.setItem('form', JSON.stringify(deleteData))
+              dispatch(deleteSelection())
+            }
+          }}
+        >
+          DELETE
+        </Button>
       </div>
 
       <Table
@@ -185,7 +216,7 @@ const InfoTable = ({ form }: { form: FormInstance<FormType> }) => {
         columns={columns}
         dataSource={data}
         pagination={{
-          pageSize: 10,
+          pageSize: 3,
           position: ['topRight'],
           itemRender: itemRender,
         }}
