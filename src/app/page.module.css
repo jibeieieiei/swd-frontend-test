@@ -53,8 +53,8 @@
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
-  align-items: start;
-  justify-content: start;
+  align-items: flex-start;
+  justify-content: flex-start;
   gap: 8px;
   border: 0px;
   border-radius: 0px;
@@ -163,7 +163,7 @@ a.secondary {
 .form {
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   width: 900px;
   border: solid 1px #1a1a1a;
@@ -174,7 +174,7 @@ a.secondary {
 }
 .formRow {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   gap: 10px;
   width: 100%;

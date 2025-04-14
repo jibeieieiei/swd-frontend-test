@@ -17,28 +17,82 @@ import { nanoid } from 'nanoid'
 import CitizenIDInput from './CitizenIDInput'
 
 import InfoTable from './InfoTable'
+import { useDispatch, useSelector } from 'react-redux'
+import { edit, insert, reset } from './action'
+import { FormData, FormState } from './reducer'
+import { useEffect } from 'react'
+
+export interface FormType {
+  title: string
+  firstname: string
+  lastname: string
+  'date-picker': string
+  nationality: string
+  'citizen-id': {
+    part1?: string
+    part2?: string
+    part3?: string
+    part4?: string
+  }
+  gender: string
+  'mobile-phone': string
+  Phone: string
+  checked: boolean
+}
 
 const FormPage = () => {
   const { t } = useTranslation()
   const [form] = useForm()
+  const dispatch = useDispatch()
+  const isEdit = useSelector((state: FormState) => {
+    return state.isEdit
+  })
 
-  const onFinish = (e: any) => {
-    const id = nanoid()
-    const data: string | null = localStorage.getItem('form')
-    if (data) {
-      localStorage.setItem(
-        'form',
-        JSON.stringify([...JSON.parse(data), { id: id, form: e }])
-      )
+  const onFinish = (e: FormType) => {
+    if (isEdit) {
+      const data: string | null = localStorage.getItem('form')
+      if (data) {
+        const array: FormData[] = JSON.parse(data)
+        const newData = array.map((item) =>
+          item.id === isEdit ? { id: isEdit, ...e } : item
+        )
+        localStorage.setItem('form', JSON.stringify(newData))
+        dispatch(edit(newData))
+      } else {
+        console.log('bug')
+      }
+      form.resetFields()
     } else {
-      localStorage.setItem('form', JSON.stringify([{ id: id, form: e }]))
+      const id = nanoid()
+      const data: string | null = localStorage.getItem('form')
+      if (data) {
+        localStorage.setItem(
+          'form',
+          JSON.stringify([...JSON.parse(data), { id: id, ...e }])
+        )
+      } else {
+        localStorage.setItem('form', JSON.stringify([{ id: id, ...e }]))
+      }
+      form.resetFields()
+      dispatch(insert({ id: id, ...e }))
     }
-    form.resetFields()
+    alert(t('Save Success'))
   }
 
   const onReset = () => {
     form.resetFields()
+    dispatch(reset())
   }
+  useEffect(() => {
+    console.log(typeof window, 'window')
+    if (typeof window !== 'undefined') {
+      const data = localStorage.getItem('form')
+      if (data) {
+        console.log('in?')
+        dispatch(edit(JSON.parse(data)))
+      }
+    }
+  }, [])
 
   return (
     <ConfigProvider
@@ -61,6 +115,7 @@ const FormPage = () => {
         >
           {t('Form & Table')}
         </span>
+
         <Form form={form} className={styles.form} onFinish={onFinish}>
           <div className={styles.formRow}>
             <Form.Item
@@ -106,9 +161,9 @@ const FormPage = () => {
                 placeholder={t('- - Please Select - -')}
                 className={styles.formItem}
               >
-                <Select.Option value="thai">{t('Thai')}</Select.Option>
-                <Select.Option value="french">{t('French')}</Select.Option>
-                <Select.Option value="american">{t('American')}</Select.Option>
+                <Select.Option value="Thai">{t('Thai')}</Select.Option>
+                <Select.Option value="French">{t('French')}</Select.Option>
+                <Select.Option value="American">{t('American')}</Select.Option>
               </Select>
             </Form.Item>
           </div>
@@ -127,9 +182,9 @@ const FormPage = () => {
               rules={[{ required: true, message: 'Please pick an item!' }]}
             >
               <Radio.Group>
-                <Radio value="male">{t('Male')}</Radio>
-                <Radio value="female">{t('Female')}</Radio>
-                <Radio value="unsex">{t('Unsex')}</Radio>
+                <Radio value="Male">{t('Male')}</Radio>
+                <Radio value="Female">{t('Female')}</Radio>
+                <Radio value="Unsex">{t('Unsex')}</Radio>
               </Radio.Group>
             </Form.Item>
           </div>
@@ -140,7 +195,7 @@ const FormPage = () => {
               rules={[{ required: true, message: '' }]}
             >
               <Select style={{ minWidth: '100px' }}>
-                <Select.Option value="thai">
+                <Select.Option value="+66">
                   <div
                     style={{
                       display: 'flex',
@@ -158,7 +213,7 @@ const FormPage = () => {
                   </div>
                 </Select.Option>
 
-                <Select.Option value="france">
+                <Select.Option value="+33">
                   <div
                     style={{
                       display: 'flex',
@@ -175,7 +230,7 @@ const FormPage = () => {
                     +33
                   </div>
                 </Select.Option>
-                <Select.Option value="american">
+                <Select.Option value="+1">
                   <div
                     style={{
                       display: 'flex',
@@ -240,7 +295,7 @@ const FormPage = () => {
             alignItems: 'center',
           }}
         >
-          <InfoTable />
+          <InfoTable form={form} />
         </div>
       </div>
     </ConfigProvider>

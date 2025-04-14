@@ -33,6 +33,8 @@ const resources = {
       'Expected salary': 'Expected Salary',
       RESET: 'RESET',
       SUBMIT: 'SUBMIT',
+      'Save Success': 'Save Success',
+      'Delete Success': 'Delete Success',
     },
   },
   th: {
@@ -66,6 +68,8 @@ const resources = {
       'Expected salary': 'เงินเดือนที่คาดหวัง',
       RESET: 'ล้างข้อมูล',
       SUBMIT: 'ส่งข้อมูล',
+      'Save Success': 'บันทึกสำเร็จ',
+      'Delete Success': 'ลบสำเร็จ',
     },
   },
 }

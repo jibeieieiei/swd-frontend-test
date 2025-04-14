@@ -13,6 +13,11 @@ const CitizenIDInput = () => {
               document.getElementById('citizen-id-2')?.focus()
             }
           }}
+          onKeyDown={(e) => {
+            if (!/[0-9]/.test(e.key) && e.key !== 'Backspace') {
+              e.preventDefault()
+            }
+          }}
         />
       </Form.Item>
       <span style={{ padding: '0 5px' }}>-</span>
